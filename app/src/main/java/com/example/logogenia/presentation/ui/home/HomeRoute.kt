@@ -3,19 +3,29 @@ package com.example.logogenia.presentation.ui.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
@@ -23,7 +33,6 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.logogenia.R
-import com.example.logogenia.components.RoundedButtonIcon
 import com.example.logogenia.components.RowOptionsNavigation
 import com.example.logogenia.presentation.navigation.KEY_CONTENT_PAGE_INDEX
 import com.example.logogenia.presentation.navigation.NavRoute
@@ -68,12 +77,27 @@ fun ContentPage(
                     colors = TopAppBarDefaults.smallTopAppBarColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     ),
-                    modifier = Modifier.padding(0.dp)
+                    modifier = Modifier
+                        .padding(0.dp)
                         .height(40.dp),
                     title = {
                         Text("")
                     }
                 )
+            },
+            bottomBar = {
+                Row(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.primary)
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.08f),
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+
+                    IconForBottomNav(Icons.Rounded.Home)
+                    IconForBottomNav(R.drawable.ic_photo_camera)
+
+                }
             }
         ) { padding ->
             Column(
@@ -92,4 +116,24 @@ fun ContentPage(
             }
         }
     }
+}
+
+@Composable
+fun IconForBottomNav(resourceId: Int){
+    Icon(painterResource(id = resourceId),
+        contentDescription = "",
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxHeight()
+    )
+}
+
+@Composable
+fun IconForBottomNav(resourceId: ImageVector){
+    Icon(resourceId,
+        contentDescription = "",
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxHeight()
+    )
 }
