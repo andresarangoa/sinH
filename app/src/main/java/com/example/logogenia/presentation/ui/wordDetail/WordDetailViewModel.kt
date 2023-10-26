@@ -100,13 +100,13 @@ class WordDetailViewModel @Inject constructor(
 
     private fun playVideo() {
         with(player) {
-            if (this?.isPlaying == true) {
-                this?.pause()
-            } else if (this?.isPlaying == false && this?.getPlaybackState() == Player.STATE_ENDED) {
-                this?.seekTo(0)
-                this?.playWhenReady = true
+            if (this.isPlaying) {
+                this.pause()
+            } else if (!this.isPlaying && this.playbackState == Player.STATE_ENDED) {
+                this.seekTo(0)
+                this.playWhenReady = true
             } else {
-                this?.playWhenReady = true
+                this.playWhenReady = true
             }
         }
     }

@@ -86,7 +86,6 @@ interface Nav{
             is NavigationState.ClearBackStack -> {
                 navHostController.clearBackStack(navigationState.staticRoute)
             }
-            else -> {}
         }
     }
 }
