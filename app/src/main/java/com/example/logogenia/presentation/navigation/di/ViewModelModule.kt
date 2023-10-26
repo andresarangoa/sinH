@@ -1,5 +1,6 @@
 package com.example.logogenia.presentation.navigation.di
 
+
 import com.example.logogenia.presentation.navigation.RouteNavigator
 import com.example.logogenia.presentation.navigation.LogogeniaRouteNavigator
 import dagger.Module
@@ -15,4 +16,5 @@ class ViewModelModule {
     @Provides
     @ViewModelScoped
     fun bindRouteNavigator(): RouteNavigator = LogogeniaRouteNavigator()
+
 }
