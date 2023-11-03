@@ -17,7 +17,7 @@ jobs:
           java-version: 1.8
 
       - name: Setup gradel
-        uses: gradle/gradle-build-actioin@v2
+        uses: gradle/gradle-build-action@v2
 
       - name: Unit Test
         run: ./gradlew testDebugUnitTest
