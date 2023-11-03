@@ -13,7 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
@@ -90,28 +89,6 @@ fun ContentPage(
 
             ) {
 
-
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())){
-                RowOptionsNavigation(homeViewModel.cards, "Señas")
-                RowOptionsNavigation(homeViewModel.cards2, "Dactilológico")
-                RowOptionsNavigation(homeViewModel.cards3, "Leer y Escribir")
-
-                    }
-                    IconForBottomNav(R.drawable.ic_photo_camera){
-                        homeViewModel.toObjectRecognition()
-                    }
-
-                }
-            }
-        ) { padding ->
-            Column(
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .background(GrayLight)
-                    .padding(padding)
-
-            ) {
-
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     RowOptionsNavigation(homeViewModel.cards, "Señas")
                     RowOptionsNavigation(homeViewModel.cards2, "Dactilológico")
@@ -120,7 +97,6 @@ fun ContentPage(
                     Button(onClick = {homeViewModel.sendAnalytics() }) {
                         Text(text = "test")
                     }
-                }
                 }
 
             }

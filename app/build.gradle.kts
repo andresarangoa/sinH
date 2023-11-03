@@ -78,9 +78,6 @@ dependencies {
     implementationOwn(AppDependencies.retrofitLibraries)
     implementationOwn(AppDependencies.hiltLibraries)
     implementationOwn(AppDependencies.exoPlayerLibraries)
-<<<<<<< Updated upstream
-=======
-
 
 
     //TensorFlow
@@ -88,8 +85,6 @@ dependencies {
 
     //ExoCamera
     implementationOwn(AppDependencies.exoCameraLibraries)
-
->>>>>>> Stashed changes
     //test libs
     testImplementationOwn(AppDependencies.testLibraries)
     androidTestImplementationOwn(AppDependencies.androidTestLibraries)
