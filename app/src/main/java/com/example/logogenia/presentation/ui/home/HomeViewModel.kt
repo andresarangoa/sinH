@@ -5,12 +5,20 @@ import androidx.lifecycle.ViewModel
 import com.example.logogenia.R
 import com.example.logogenia.presentation.navigation.RouteNavigator
 import com.example.logogenia.presentation.ui.knowingWords.KnowingWordsRoute
+<<<<<<< Updated upstream
+=======
+import com.example.logogenia.presentation.ui.logEventFlow
+import com.example.logogenia.presentation.ui.logTestEvent
+import com.example.logogenia.presentation.ui.objectsRecognition.ObjectRecognitionRoute
+import com.google.firebase.analytics.FirebaseAnalytics
+>>>>>>> Stashed changes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val routeNavigator: RouteNavigator
+    private val routeNavigator: RouteNavigator,
+    private val firebaseAnalytics: FirebaseAnalytics
 ): ViewModel(), RouteNavigator by routeNavigator {
 
 
@@ -32,6 +40,11 @@ class HomeViewModel @Inject constructor(
         NavigationComponent(R.drawable.how_start_img, "Escribir",
             { toKnowingWords() })
     )
+
+    fun sendAnalytics(){
+        Log.d("tag","sent")
+        logTestEvent(firebaseAnalytics)
+    }
 
     fun toKnowingWords(){
         Log.d("DIOS","uhmmm")

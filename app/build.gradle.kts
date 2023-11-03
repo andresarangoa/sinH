@@ -5,11 +5,12 @@ import com.example.buildsrc.implementationOwn
 import com.example.buildsrc.testImplementationOwn
 
 plugins {
+
+    id("com.google.gms.google-services")
     id ("com.android.application")
     id ("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
-    id("com.google.gms.google-services")
     kotlin("android")
 }
 
@@ -68,12 +69,27 @@ dependencies {
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":data")))
 
+    implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
     //app libs
     implementationOwn(AppDependencies.appLibraries)
     implementationOwn(AppDependencies.coroutinesLibraries)
     implementationOwn(AppDependencies.retrofitLibraries)
     implementationOwn(AppDependencies.hiltLibraries)
     implementationOwn(AppDependencies.exoPlayerLibraries)
+<<<<<<< Updated upstream
+=======
+
+
+
+    //TensorFlow
+    implementationOwn(AppDependencies.tensorFlow)
+
+    //ExoCamera
+    implementationOwn(AppDependencies.exoCameraLibraries)
+
+>>>>>>> Stashed changes
     //test libs
     testImplementationOwn(AppDependencies.testLibraries)
     androidTestImplementationOwn(AppDependencies.androidTestLibraries)

@@ -6,6 +6,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+<<<<<<< Updated upstream
+=======
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+>>>>>>> Stashed changes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -59,10 +73,38 @@ fun ContentPage(
 
         ) {
 
+<<<<<<< Updated upstream
             Column(modifier = Modifier.verticalScroll(rememberScrollState())){
                 RowOptionsNavigation(homeViewModel.cards, "Señas")
                 RowOptionsNavigation(homeViewModel.cards2, "Dactilológico")
                 RowOptionsNavigation(homeViewModel.cards3, "Leer y Escribir")
+=======
+                    }
+                    IconForBottomNav(R.drawable.ic_photo_camera){
+                        homeViewModel.toObjectRecognition()
+                    }
+
+                }
+            }
+        ) { padding ->
+            Column(
+                verticalArrangement = Arrangement.Top,
+                modifier = Modifier
+                    .background(GrayLight)
+                    .padding(padding)
+
+            ) {
+
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    RowOptionsNavigation(homeViewModel.cards, "Señas")
+                    RowOptionsNavigation(homeViewModel.cards2, "Dactilológico")
+                    RowOptionsNavigation(homeViewModel.cards3, "Leer y Escribir")
+                    Button(onClick = {homeViewModel.sendAnalytics() }) {
+                        Text(text = "test")
+                    }
+                }
+
+>>>>>>> Stashed changes
             }
         }
     }

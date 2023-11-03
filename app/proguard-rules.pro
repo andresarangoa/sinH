@@ -18,4 +18,14 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
+<<<<<<< Updated upstream
 #-renamesourcefileattribute SourceFile
+=======
+#-renamesourcefileattribute SourceFile
+-keepclasseswithmembernames,includedescriptorclasses class * {
+native <methods>;
+}
+# RenderScript to be safe on "native callback" side
+-keep class androidx.renderscript.** { *; }
+-keep class com.google.analytics.** { *; }
+>>>>>>> Stashed changes

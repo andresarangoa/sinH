@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "177598219801",
+    "project_id": "logogenia",
+    "storage_bucket": "logogenia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177598219801:android:5b2007f399491ac8ad8c88",
+        "android_client_info": {
+          "package_name": "com.example.logogenia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177598219801-m5f0rronnhd373a6jaqdjqfkancleqj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG5-k8fwGGvW37By0zatVSLO6i8jyjW0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177598219801-m5f0rronnhd373a6jaqdjqfkancleqj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
