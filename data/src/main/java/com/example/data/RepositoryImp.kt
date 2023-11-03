@@ -28,6 +28,7 @@ class RemoteDataSource
 @Inject constructor(retrofit: Retrofit) : MaterialApi {
     private val wordsApi by lazy { retrofit.create(MaterialApi::class.java) }
     override fun words(): Call<List<WordEntityRemote>> = wordsApi.words()
+    override fun wordsByLetter(letter: String): Call<List<WordEntityRemote>> = wordsApi.wordsByLetter(letter)
 }
 
 @Singleton
@@ -36,7 +37,7 @@ class LocalRepositoryDataSourceImp @Inject constructor(private val wordDao: Word
         return  wordDao.getAllWords()
     }
 
-    override fun getListWordsByLetter(letter: Char): List<WordEntity> {
+    override fun getListWordsByLetter(letter: String): List<WordEntity> {
         return  wordDao.getAllWordsByLetter(letter)
     }
 
@@ -73,8 +74,25 @@ class RepositoryImp
     private val remoteDataSource: RemoteDataSource,
     private val localMaterialRepository: LocalRepositoryDataSourceImp
 ) : MaterialRepository {
-    override fun wordsByLetter(letter: Char): Either<Failure, List<Word>> {
-        return getLocalWords(letter)
+    override fun wordsByLetter(letter: String): Either<Failure, List<Word>> {
+        val request: Either<Failure, List<Word>> = when (networkHandler.isNetworkAvailable()) {
+            true -> {
+                request(
+                    remoteDataSource.wordsByLetter(letter),
+                    { it.toWordsList()},
+                    emptyList()
+                )
+            }
+            false -> getLocalWords(letter)
+        }
+
+        request.fold(
+            fnL = {
+
+            },
+            fnR = {}
+        )
+        return request
     }
 
     override fun getAllWords(): Either<Failure, List<Word>> {
@@ -86,7 +104,7 @@ class RepositoryImp
                 emptyList()
             )
         }
-            false -> getLocalWords('a')
+            false -> getLocalWords("a")
         }
 
         request.fold(
@@ -102,7 +120,7 @@ class RepositoryImp
         return localMaterialRepository.createWords(listWords.toWordEntityList())
     }
 
-    private fun getLocalWords(letter: Char): Either<Failure, List<Word>> {
+    private fun getLocalWords(letter: String): Either<Failure, List<Word>> {
 
         return try {
             val response = localMaterialRepository.getListWordsByLetter(letter)

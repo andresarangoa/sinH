@@ -1,35 +1,33 @@
 package com.example.logogenia.presentation.ui.wordDetail
 
-import android.net.Uri
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.Player
-import androidx.media3.exoplayer.ExoPlayer
 import com.example.domain.databasemanager.model.Word
-import com.example.domain.databasemanager.usecases.GetWordsUseCase
+import com.example.domain.databasemanager.usecases.GetWordsByLetterUseCase
+import com.example.logogenia.R
 import com.example.logogenia.presentation.navigation.RouteNavigator
+import com.example.logogenia.presentation.ui.BaseViewModel
 import com.old.domain.model.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class WordDetailViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,
     private val routeNavigator: RouteNavigator,
-    private val getWordsUseCase: GetWordsUseCase,
+    private val getWordsByLetterUseCase: GetWordsByLetterUseCase,
     val player: Player
-): ViewModel(),RouteNavigator by routeNavigator {
+) : BaseViewModel<WordDetailViewModel.WordDetailsEvent>(),
+    RouteNavigator by routeNavigator {
+    sealed class WordDetailsEvent {
+        object NextVideo : WordDetailsEvent()
+        object PreviousVideo : WordDetailsEvent()
+        object PlayVideo : WordDetailsEvent()
+    }
 
     private val _letter: MutableLiveData<String> = MutableLiveData()
     val letter: LiveData<String> = _letter
@@ -40,115 +38,99 @@ class WordDetailViewModel @Inject constructor(
     private val _failure: MutableLiveData<Failure> = MutableLiveData()
     val failure: LiveData<Failure> = _failure
 
-    private val _status: MutableLiveData<States<WordDetailsStatus>> = MutableLiveData()
-    val status: LiveData<States<WordDetailsStatus>> = _status
+    private val _wordPosition: MutableLiveData<Int> = MutableLiveData(0)
+    val wordPosition: LiveData<Int> = _wordPosition
 
-    private val _videoPosition : MutableLiveData<Int> = MutableLiveData(0)
-    val videoPosition: LiveData<Int> = _videoPosition
+    private val _word: MutableLiveData<Word> = MutableLiveData()
+    val word: LiveData<Word> = _word
 
-    private val videoUris = savedStateHandle.getStateFlow("videoUris", emptyList<Uri>())
-
-    val mediaItems = arrayListOf<MediaItem>()
-    val videoItems = videoUris.map { uris ->
-        uris.map { uri ->
-            VideoItem(
-                content = uri,
-                mediaItem = MediaItem.fromUri(uri),
-                name =  "No name"
-            )
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    fun Uri.toVideoItem() = VideoItem(
-        this,
-        MediaItem.fromUri(this),
-        "No name"
-    )
-
-
-    fun addVideoUr(uri: Uri) {
-        savedStateHandle["videoUris"] = videoUris.value + uri
-        player.addMediaItem(MediaItem.fromUri(uri))
-    }
-
-    fun playVid(uri: Uri) {
-        player.setMediaItem(
-            videoItems.value.find { it.content == uri }?.mediaItem ?: return
-        )
-    }
+    private val _icStatusPlayer: MutableLiveData<Int> = MutableLiveData(R.drawable.ic_play)
+    val icStatePlayer: LiveData<Int> = _icStatusPlayer
 
     init {
-        _letter.value = WordDetailRoute.getStringFrom(savedStateHandle)
-        loadAllWordsData()
-        Log.d("INNVIEWM", "${allWords.value?.size}")
-
-
-
-    }
-
-    private fun loadAllWordsData() =
-        getWordsUseCase(GetWordsUseCase.Params(1), viewModelScope) { it.fold(::handleFailure, ::handleTopRatedMovieList) }
-
-
-    private fun handleTopRatedMovieList( words: List<Word>) {
-        Log.d("INNVIEWM","${words?.size}")
-        _allWords.value = words
-
         player.prepare()
-        allWords.value?.forEach {
-            mediaItems.add(
-                MediaItem.Builder()
-                    .setUri(it.video)
-                    .setMimeType(MimeTypes.APPLICATION_MP4)
-                    .build()
-            )
-
+        _letter.value = WordDetailRoute.getStringFrom(savedStateHandle)
+        _letter.value?.let { letter ->
+            loadAllWordsData(letter)
         }
-        player.addMediaItems(mediaItems)
-
-        _status.value = States(WordDetailsStatus.ShowWords(words))
+        exoPlayerListener()
     }
+
+    private fun exoPlayerListener() {
+        player.addListener(object : Player.Listener {
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                super.onIsPlayingChanged(isPlaying)
+                if (isPlaying) {
+                    _icStatusPlayer.value = R.drawable.ic_pause
+                } else {
+                    _icStatusPlayer.value = R.drawable.ic_play
+                }
+            }
+        })
+    }
+
+    private fun loadAllWordsData(letter: String) =
+        getWordsByLetterUseCase(
+            GetWordsByLetterUseCase.Params(letter),
+            viewModelScope
+        ) { it.fold(::handleFailure, ::handleTopRatedMovieList) }
+
+
+    private fun handleTopRatedMovieList(words: List<Word>) {
+        _allWords.value = words
+        setVideoOnPlayer()
+    }
+
+    private fun setVideoOnPlayer() {
+        _word.value = wordPosition.value?.let { allWords.value?.get(it) }
+        allWords.value?.let {
+            addVideoUri(it[wordPosition.value ?: 0].video)
+        }
+    }
+
     private fun handleFailure(failure: Failure) {
-        Log.d("FALLO","$failure")
         _failure.value = failure
     }
 
-    fun playVideo(){
-        var uri: Uri?= allWords.value!!.get(videoPosition.value?:0).video.toUri()
-        player.addMediaItem(MediaItem.fromUri(uri!!))
-
-        uri = Uri.parse("https://drive.google.com/file/d/1Zo8cmOYeV6SK4fTcY8eIAdr1zVRDIwPj/view?usp=drive_link")
+    private fun addVideoUri(uri: String) {
         player.setMediaItem(
-            uri.toVideoItem().mediaItem
+            MediaItem.fromUri(uri)
         )
     }
 
-    fun addVideoUri(uri: Uri){
-        val uri: Uri?= videoPosition.value?.let { allWords.value?.get(it)?.video?.toUri()}
-        uri?.let { MediaItem.fromUri(it) }?.let { player.addMediaItem(it) }
+    private fun playVideo() {
+        with(player) {
+            if (this?.isPlaying == true) {
+                this?.pause()
+            } else if (this?.isPlaying == false && this?.getPlaybackState() == Player.STATE_ENDED) {
+                this?.seekTo(0)
+                this?.playWhenReady = true
+            } else {
+                this?.playWhenReady = true
+            }
+        }
     }
 
+    override fun manageEvent(event: Any) {
+        when (event) {
+            is WordDetailsEvent.NextVideo -> {
+                if (wordPosition.value?.plus(1) ?: 0 < allWords.value?.size!!) {
+                    _wordPosition.value = wordPosition.value?.plus(1)
+                    setVideoOnPlayer()
+                }
+            }
 
-    sealed class WordDetailsStatus {
-        data class ShowWords(val listOfWords : List<Word>):WordDetailsStatus()
+            is WordDetailsEvent.PreviousVideo -> {
+                if (wordPosition.value?.minus(1) ?: 0 >= 0) {
+                    _wordPosition.value = wordPosition.value?.minus(1)
+                    setVideoOnPlayer()
+                }
+            }
+
+            is WordDetailsEvent.PlayVideo -> {
+                playVideo()
+            }
+        }
     }
-
-
 }
 
-data class VideoItem(
-    val content: Uri,
-    val mediaItem: MediaItem,
-    val name: String
-)
-data class States<out T>(private val content:T) {
-
-    private var hasBeenHandled = false
-
-    fun getContentIfNotHandled(): T? = if (hasBeenHandled) {
-        null
-    } else {
-        hasBeenHandled = true
-        content
-    }
-}

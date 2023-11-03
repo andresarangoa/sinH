@@ -1,8 +1,6 @@
 package com.example.logogenia.presentation.ui
 
 import android.content.Context
-<<<<<<< Updated upstream
-=======
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.os.Bundle
@@ -26,14 +24,10 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
->>>>>>> Stashed changes
 
 val alphabet = listOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 
 fun getDrawableId(resourceName : String, context : Context) = context.resources.getIdentifier(
-<<<<<<< Updated upstream
-    resourceName, "drawable", context.packageName)
-=======
     resourceName, "drawable", context.packageName)
 
 abstract class BaseViewModel<in ViewEvent>   : ViewModel(), IBaseViewModel {
@@ -106,4 +100,3 @@ fun String.capitalizeFirstLetter(): String {
         this
     }
 }
->>>>>>> Stashed changes

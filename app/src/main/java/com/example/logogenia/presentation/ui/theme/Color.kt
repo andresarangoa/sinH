@@ -30,7 +30,7 @@ val GrayLight_2 = Color(0xFFDBDBDB)
 val Yellow10 = Color(0xFF332800)
 val Yellow20 = Color(0xFF665000)
 val Yellow30 = Color(0xFF997800)
-val Yellow40 = Color(0xFFFFC800)
+val Yellow40 = Color(0xFFBEA23C)
 val Yellow80 = Color(0xFFFFE999)
 val Yellow90 = Color(0xFFFFF4CC)
 
@@ -90,3 +90,39 @@ val YellowGray40 = Color(0xFFac9d53)
 val YellowGray80 = Color(0xFFded8ba)
 val YellowGray90 = Color(0xFFeeebdd)
 val YellowGray95 = Color(0xFFf7f5ee)
+
+
+val Blue500 = Color(0xFF2196F3)
+val Blue700 = Color(0xFF1976D2)
+val Blue900 = Color(0xFF242C34)
+val Orange500 = Color(0xFFFF5722)
+val Orange700 = Color(0xFFF4511E)
+val Gray100 = Color(0xFFf5f5f5)
+val Gray800 = Color(0xFF424242)
+
+val PastelColorPalette = mapOf(
+    "primary" to Color(0xFFB4CCB9),        // Pastel Green
+    "onPrimary" to Color(0xFF35424A),      // Dark Blue-Gray
+    "primaryContainer" to Color(0xFFF0D8A8),  // Pastel Beige
+    "onPrimaryContainer" to Color(0xFF8D9A94), // Light Blue-Gray
+    "inversePrimary" to Color(0xFFECC5AB),  // Light Pastel Orange
+    "secondary" to Color(0xFFA4C3B2),      // Light Pastel Green
+    "onSecondary" to Color(0xFF1B2B32),    // Dark Blue-Gray
+    "secondaryContainer" to Color(0xFFF2E9CB), // Light Pastel Beige
+    "onSecondaryContainer" to Color(0xFF889080), // Light Blue-Gray
+    "tertiary" to Color(0xFFC2A19D),       // Pastel Pinkish
+    "onTertiary" to Color(0xFF3B2F2C),     // Dark Brown
+    "tertiaryContainer" to Color(0xFFF4E4E2),  // Light Pinkish Beige
+    "onTertiaryContainer" to Color(0xFF84716B),  // Light Brown
+    "error" to Color(0xFFD3838D),          // Pastel Pink
+    "onError" to Color(0xFF381F26),        // Dark Burgundy
+    "errorContainer" to Color(0xFFF3DFE2), // Light Pastel Pinkish Beige
+    "onErrorContainer" to Color(0xFF8B5F68), // Light Burgundy
+    "background" to Color(0xFFE8E8E8),     // Light Gray
+    "onBackground" to Color(0xFF333333),   // Dark Gray
+    "surface" to Color(0xFFD1D1D1),        // Light Silver
+    "onSurface" to Color(0xFF4B4B4B),      // Dark Silver
+    "inverseSurface" to Color(0xFFC9C9C9),  // Light Grayish Blue
+    "inverseOnSurface" to Color(0xFF373737),// Dark Grayish Blue
+    "surfaceTint" to Color(0xFFE8E8E8)     // Light Gray (same as background)
+)

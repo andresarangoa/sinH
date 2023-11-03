@@ -11,7 +11,7 @@ interface WordDao {
     fun getAllWords(): List<WordEntity>
 
     @Query("SELECT * FROM words where letter = :letter")
-    fun getAllWordsByLetter(letter: Char): List<WordEntity>
+    fun getAllWordsByLetter(letter: String): List<WordEntity>
 
     @Query("SELECT * FROM words WHERE word = :word")
     fun getWordDetail(word: String): WordEntity

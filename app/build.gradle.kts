@@ -95,4 +95,5 @@ dependencies {
     androidTestImplementationOwn(AppDependencies.androidTestLibraries)
     implementation("com.squareup:javapoet:1.13.0")
     kapt(Hilt.compiler)
+
 }

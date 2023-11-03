@@ -13,6 +13,14 @@ object Versions {
     const val mockk = "1.10.0"
     const val robolectric = "4.4"
     const val kluent = "1.68"
+    const val junitKtx = "1.1.3"
+    const val mockitoCore = "2.24.5"
+    const val mockitoKotlin = "4.0.0"
+    const val coroutinesTest = "1.7.3"
+    const val mockitoInline = "4.8.0"
+    const val archCoreTest = "2.1.0"
+
+
     const val androidxTest = "1.1.3"
     const val androidxTestEspresso = "3.4.0"
     const val hiltVersion = "1.0.0"
@@ -119,6 +127,13 @@ object AppDependencies {
     private const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     private const val kluent = "org.amshove.kluent:kluent:${Versions.kluent}"
 
+    private const val junitKtx = "androidx.test.ext:junit-ktx:${Versions.junitKtx}"
+    private const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
+    private const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}"
+    private const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
+    private const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockitoInline}"
+    private const val archCoreTest = "androidx.arch.core:core-testing:${Versions.archCoreTest}"
+
     //androidTestImplementation
     private const val androidxTest = "androidx.test.ext:junit:${Versions.androidxTest}"
     private const val androidxTestEspresso =
@@ -191,5 +206,11 @@ object AppDependencies {
         add(mockk)
         add(robolectric)
         add(kluent)
+        add(junitKtx)
+        add(mockitoCore)
+        add(mockitoKotlin)
+        add(coroutinesTest)
+        add(mockitoInline)
+        add(archCoreTest)
     }
 }

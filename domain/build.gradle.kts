@@ -47,6 +47,7 @@ dependencies {
     implementationOwn(AppDependencies.retrofitLibraries)
     implementationOwn(AppDependencies.hiltLibraries)
     implementation("com.squareup:javapoet:1.13.0")
+    implementationOwn(AppDependencies.exoPlayerLibraries)
     testImplementationOwn(AppDependencies.testLibraries)
     //room
     api(Room.roomLib)

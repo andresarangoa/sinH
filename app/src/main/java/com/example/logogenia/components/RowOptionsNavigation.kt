@@ -13,12 +13,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.logogenia.presentation.ui.home.NavigationComponent
+import com.example.logogenia.presentation.ui.theme.gerberaFontFamily
 
 @Composable
 fun RowOptionsNavigation(listOfItems :  List<NavigationComponent>, title: String){
     Column {
         Text(  text = title,
             fontWeight = FontWeight.Bold,
+            fontFamily = gerberaFontFamily,
             color = Color.Black,
             fontSize=20.sp,
             modifier = Modifier
