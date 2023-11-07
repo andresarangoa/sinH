@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.logogenia.R
 import com.example.logogenia.presentation.navigation.RouteNavigator
 import com.example.logogenia.presentation.ui.knowingWords.KnowingWordsRoute
+import com.example.logogenia.presentation.ui.objectsRecognition.ObjectRecognitionRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -34,15 +35,12 @@ class HomeViewModel @Inject constructor(
     )
 
     fun toKnowingWords(){
-        Log.d("DIOS","uhmmm")
         routeNavigator.navigateToRoute(KnowingWordsRoute.get(0))
     }
 
-    init {
-
-
+    fun toObjectRecognition(){
+        routeNavigator.navigateToRoute(ObjectRecognitionRoute.get(0))
     }
-
 }
 
 data class NavigationComponent(val image: Int, val title: String, val action: ()->Unit)

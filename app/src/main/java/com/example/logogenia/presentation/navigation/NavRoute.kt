@@ -83,9 +83,11 @@ interface Nav{
             }
             is NavigationState.Idle -> {
             }
+            is NavigationState.ClearBackStack -> {
+                navHostController.clearBackStack(navigationState.staticRoute)
+            }
         }
     }
-
 }
 
 fun <T> SavedStateHandle.getOrThrow(key: String): T =

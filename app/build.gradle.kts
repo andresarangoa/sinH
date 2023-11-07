@@ -28,6 +28,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        renderscriptTargetApi = 23
+        renderscriptSupportModeEnabled = false
     }
 
     buildTypes {
@@ -51,6 +53,7 @@ android {
 
     buildFeatures {
         compose = true
+        mlModelBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -74,10 +77,17 @@ dependencies {
     implementationOwn(AppDependencies.retrofitLibraries)
     implementationOwn(AppDependencies.hiltLibraries)
     implementationOwn(AppDependencies.exoPlayerLibraries)
+
+    //TensorFlow
+    implementationOwn(AppDependencies.tensorFlow)
+
+    //ExoCamera
+    implementationOwn(AppDependencies.exoCameraLibraries)
+
     //test libs
     testImplementationOwn(AppDependencies.testLibraries)
     androidTestImplementationOwn(AppDependencies.androidTestLibraries)
-    implementation("com.squareup:javapoet:1.13.0")
+
     kapt(Hilt.compiler)
 
 }
