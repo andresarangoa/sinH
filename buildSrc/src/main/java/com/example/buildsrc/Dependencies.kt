@@ -28,6 +28,11 @@ object Versions {
     const val material3Version = "1.0.0-alpha13"
     const val navigationAnimation = "0.26.5-rc"
     const val exoPlayer = "1.0.0-rc01"
+    const val exoCamera = "1.2.0-alpha03"
+    const val tensorFlowLite = "0.3.0"
+    const val tensorFlowLiteMetadata = "0.1.0"
+    const val accompanistPersmission = "0.24.3-alpha"
+    const val javapoet = "1.13.0"
 }
 
 object DebugDependencies{
@@ -112,13 +117,30 @@ object AppDependencies {
         "androidx.compose.material3:material3-window-size-class:${Versions.material3Version}"
     private const val navigationAnimation =
         "com.google.accompanist:accompanist-navigation-animation:${Versions.navigationAnimation}"
+        private const val permissionsAccompanist =
+        "com.google.accompanist:accompanist-permissions:${Versions.accompanistPersmission}"
+        private const val javaPoet =
+        "com.squareup:javapoet:${Versions.javapoet}"
+
+    // CameraX
+    private const val exoCameraCore = "androidx.camera:camera-core:${Versions.exoCamera}"
+    private const val exoCamera2 = "androidx.camera:camera-camera2:${Versions.exoCamera}"
+    private const val exoCameraLifecycle = "androidx.camera:camera-lifecycle:${Versions.exoCamera}"
+    private const val exoCameraView = "androidx.camera:camera-view:${Versions.exoCamera}"
+
+    // TensorFlow
+    private const val tensorFlowLite = "org.tensorflow:tensorflow-lite-support:${Versions.tensorFlowLite}"
+    private const val tensorFlowLiteMetadata = "androidx.camera:camera-view:${Versions.tensorFlowLiteMetadata}"
+
+
+    //ExoPlayer
+
     private const val mediaExoPlayer =
         "androidx.media3:media3-exoplayer:${Versions.exoPlayer}"
     private const val exoPlayerDash =
         "androidx.media3:media3-exoplayer-dash:${Versions.exoPlayer}"
     private const val exoPlayerMedia =
         "androidx.media3:media3-ui:${Versions.exoPlayer}"
-
 
     //test libs
     //testImplementation
@@ -160,6 +182,8 @@ object AppDependencies {
         add(materialWindowSize)
         add(coilCompose)
         add(navigationAnimation)
+        add(permissionsAccompanist)
+        add(javaPoet)
     }
 
     val coroutinesLibraries = arrayListOf<String>().apply {
@@ -176,6 +200,17 @@ object AppDependencies {
         add(AppDependencies.exoPlayerDash)
         add(AppDependencies.exoPlayerMedia)
         add(AppDependencies.mediaExoPlayer)
+    }
+
+    val tensorFlow = arrayListOf<String>().apply {
+        add(AppDependencies.tensorFlowLite)
+        add(AppDependencies.tensorFlowLiteMetadata)
+    }
+    val exoCameraLibraries = arrayListOf<String>().apply {
+        add( exoCameraCore)
+        add( exoCamera2)
+        add( exoCameraLifecycle)
+        add( exoCameraView)
     }
 
     val retrofitLibraries = arrayListOf<String>().apply {

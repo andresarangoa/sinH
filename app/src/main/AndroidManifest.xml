@@ -23,8 +23,6 @@
         android:hardwareAccelerated="true"
         android:largeHeap="true"
         tools:node="merge"
-        android:hardwareAccelerated="true"
-        android:largeHeap="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

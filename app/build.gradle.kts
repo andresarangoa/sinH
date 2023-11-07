@@ -79,7 +79,6 @@ dependencies {
     implementationOwn(AppDependencies.hiltLibraries)
     implementationOwn(AppDependencies.exoPlayerLibraries)
 
-
     //TensorFlow
     implementationOwn(AppDependencies.tensorFlow)
 

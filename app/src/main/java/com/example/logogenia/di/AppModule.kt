@@ -13,11 +13,9 @@ import com.example.domain.databasemanager.WordDao
 import com.example.domain.databasemanager.repository.ApiConstants
 import com.example.domain.databasemanager.repository.MaterialRepository
 import com.example.logogenia.BuildConfig
-import com.example.logogenia.presentation.ui.knowingWords.KnowingWordsRoute
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.example.logogenia.presentation.ui.knowingWords.KnowingWordsRoute
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +25,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.Duration
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)
