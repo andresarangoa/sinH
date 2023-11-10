@@ -1,7 +1,7 @@
-import com.example.buildsrc.implementationOwn
-import com.example.buildsrc.testImplementationOwn
-import com.example.buildsrc.AppDependencies
-import com.example.buildsrc.Room
+import com.arangoa.buildsrc.implementationOwn
+import com.arangoa.buildsrc.testImplementationOwn
+import com.arangoa.buildsrc.AppDependencies
+import com.arangoa.buildsrc.Room
 
 plugins {
     kotlin("android")
@@ -11,7 +11,7 @@ plugins {
 
 
 android {
-    namespace = "com.example.domain"
+    namespace = "com.arango.domain"
     compileSdk = 33
 
     defaultConfig {
@@ -43,14 +43,14 @@ android {
 
 dependencies {
 
-    implementationOwn(AppDependencies.coroutinesLibraries)
-    implementationOwn(AppDependencies.retrofitLibraries)
-    implementationOwn(AppDependencies.hiltLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.coroutinesLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.retrofitLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.hiltLibraries)
     implementation("com.squareup:javapoet:1.13.0")
-    implementationOwn(AppDependencies.exoPlayerLibraries)
-    testImplementationOwn(AppDependencies.testLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.exoPlayerLibraries)
+    testImplementationOwn(com.arangoa.buildsrc.AppDependencies.testLibraries)
     //room
-    api(Room.roomLib)
-    implementation(Room.roomKtx)
-    kapt(Room.roomCompiler)
+    api(com.arangoa.buildsrc.Room.roomLib)
+    implementation(com.arangoa.buildsrc.Room.roomKtx)
+    kapt(com.arangoa.buildsrc.Room.roomCompiler)
 }

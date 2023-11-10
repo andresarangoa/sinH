@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "294962643943",
-    "project_id": "logogenia-33b67",
-    "storage_bucket": "logogenia-33b67.appspot.com"
+    "project_number": "177598219801",
+    "project_id": "logogenia",
+    "storage_bucket": "logogenia.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:294962643943:android:801b75325a3fb8a353b342",
+        "mobilesdk_app_id": "1:177598219801:android:74013b1aaf1afad4ad8c88",
         "android_client_info": {
-          "package_name": "com.example.logogenia"
+          "package_name": "com.arangoa.logogenia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "294962643943-j9m4bc2hekcb18specmgm6kj2vmqmf6n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.logogenia",
-            "certificate_hash": "ef812ca4fa4ab65be9e61db88daabb08fd8d3c0d"
-          }
-        },
-        {
-          "client_id": "294962643943-tcavof2bfagu5vbcodcedmau95h3741m.apps.googleusercontent.com",
+          "client_id": "177598219801-m5f0rronnhd373a6jaqdjqfkancleqj3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA25Ug3Iwxnh6huO1swmSb34M1n9j7feHw"
+          "current_key": "AIzaSyAG5-k8fwGGvW37By0zatVSLO6i8jyjW0A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "294962643943-tcavof2bfagu5vbcodcedmau95h3741m.apps.googleusercontent.com",
+              "client_id": "177598219801-m5f0rronnhd373a6jaqdjqfkancleqj3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

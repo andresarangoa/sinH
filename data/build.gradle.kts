@@ -1,5 +1,5 @@
-import com.example.buildsrc.implementationOwn
-import com.example.buildsrc.AppDependencies
+import com.arangoa.buildsrc.implementationOwn
+import com.arangoa.buildsrc.AppDependencies
 
 plugins {
     kotlin("android")
@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.arangoa.data"
     compileSdk = 34
 
     defaultConfig {
@@ -40,7 +40,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
-    implementationOwn(AppDependencies.coroutinesLibraries)
-    implementationOwn(AppDependencies.retrofitLibraries)
-    implementationOwn(AppDependencies.hiltLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.coroutinesLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.retrofitLibraries)
+    implementationOwn(com.arangoa.buildsrc.AppDependencies.hiltLibraries)
 }
