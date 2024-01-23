@@ -1,26 +1,35 @@
 package com.example.logogenia.presentation.ui.wordDetail
 
+import android.net.Uri
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import com.example.domain.databasemanager.model.Word
 import com.example.domain.databasemanager.repository.MaterialRepository
 import com.example.domain.databasemanager.usecases.GetWordsByLetterUseCase
 import com.example.logogenia.presentation.navigation.LogogeniaRouteNavigator
+import com.example.logogenia.presentation.navigation.getOrThrow
 import com.example.logogenia.utils.MainCoroutineRule
+import com.old.domain.model.Either
+import com.sinh.player.repository.IPlayer
+import com.sinh.player.usecases.GetPlayerUseCase
+import com.sinh.player.usecases.PlayVideoUseCase
+import com.sinh.player.usecases.PreparePlayerUseCase
+import com.sinh.player.usecases.SetVideoUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.amshove.kluent.internal.assertEquals
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Rule
 import org.junit.Test
-import com.example.logogenia.presentation.navigation.getOrThrow
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mockito
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.domain.databasemanager.model.Word
-import com.old.domain.model.Either
-import org.amshove.kluent.internal.assertEquals
-import org.amshove.kluent.shouldBeEqualTo
+
 
 @ExperimentalCoroutinesApi
 class WordDetailViewModelTest {
@@ -34,11 +43,30 @@ class WordDetailViewModelTest {
     private val letter: String= "a"
     private val params: GetWordsByLetterUseCase.Params = GetWordsByLetterUseCase.Params(letter)
     private val materialRepository: MaterialRepository = mock()
-
+    private val playerRepository: IPlayer = mock()
+    var uri: Uri = mock()
+    var mediaItem = MediaItem.fromUri(uri)
 
     private val player: Player = mock()
+
     private val getWordsByLetterUseCase: GetWordsByLetterUseCase by lazy {
         GetWordsByLetterUseCase(materialRepository)
+    }
+
+    private val preparePlayerUseCase: PreparePlayerUseCase by lazy {
+        PreparePlayerUseCase(playerRepository)
+    }
+
+    private val playVideoUseCase: PlayVideoUseCase by lazy {
+        PlayVideoUseCase(playerRepository)
+    }
+
+    private val setVideoUseCase: SetVideoUseCase by lazy {
+        SetVideoUseCase(playerRepository)
+    }
+
+    private val getPlayerUseCase: GetPlayerUseCase by lazy {
+        GetPlayerUseCase(playerRepository)
     }
 
     private val routeNavigator: LogogeniaRouteNavigator by lazy {
@@ -55,7 +83,10 @@ class WordDetailViewModelTest {
             savedState,
             routeNavigator,
             getWordsByLetterUseCase,
-            player
+            playVideoUseCase,
+            preparePlayerUseCase,
+            setVideoUseCase,
+            getPlayerUseCase
         )
     }
 
@@ -67,7 +98,14 @@ class WordDetailViewModelTest {
         ).doAnswer() {
            Either.Right(listOf(Word.empty))
         }
-        assertEquals(expected= letter, actual= wordDetailViewModel.letter.value,)
+
+        whenever(
+            getPlayerUseCase.run()
+        ).doAnswer() {
+            player
+        }
+
+        assertEquals(expected = letter, actual = wordDetailViewModel.letter.value)
     }
 
     @Test
@@ -76,6 +114,11 @@ class WordDetailViewModelTest {
         whenever(
             getWordsByLetterUseCase.run(params)
         ).thenReturn(Either.Right(mockListWord))
+        whenever(
+            getPlayerUseCase.run()
+        ).doAnswer() {
+           player
+        }
         // when
         wordDetailViewModel.allWords.observeForever {
             it.size shouldBeEqualTo 1

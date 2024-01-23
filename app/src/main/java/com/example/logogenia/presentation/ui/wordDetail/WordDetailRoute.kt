@@ -139,7 +139,7 @@ fun ViewWordDetail(wordDetailViewModel: WordDetailViewModel, screenWidth: Dp) {
                 val lifecycleOwner = LocalLifecycleOwner.current
 
                 val oneThirdScreenWidth = screenWidth - ((screenWidth / 3) + 30.dp)
-                val exoPlayer = wordDetailViewModel.player
+                val exoPlayer = wordDetailViewModel.player.value
 
                 DisposableEffect(lifecycleOwner) {
                     val observer = LifecycleEventObserver { _, event ->
