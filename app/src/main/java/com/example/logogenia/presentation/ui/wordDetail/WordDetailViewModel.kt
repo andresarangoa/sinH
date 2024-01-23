@@ -12,15 +12,23 @@ import com.example.logogenia.R
 import com.example.logogenia.presentation.navigation.RouteNavigator
 import com.example.logogenia.presentation.ui.BaseViewModel
 import com.old.domain.model.Failure
+import com.sinh.player.usecases.GetPlayerUseCase
+import com.sinh.player.usecases.PlayVideoUseCase
+import com.sinh.player.usecases.PreparePlayerUseCase
+import com.sinh.player.usecases.SetVideoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class WordDetailViewModel @Inject constructor(
-    val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val routeNavigator: RouteNavigator,
     private val getWordsByLetterUseCase: GetWordsByLetterUseCase,
-    val player: Player
+    private val playVideoUseCase: PlayVideoUseCase,
+    private val preparePlayerUseCase: PreparePlayerUseCase,
+    private val setVideoUseCase: SetVideoUseCase,
+    private val getPlayerUseCase: GetPlayerUseCase
 ) : BaseViewModel<WordDetailViewModel.WordDetailsEvent>(),
     RouteNavigator by routeNavigator {
     sealed class WordDetailsEvent {
@@ -47,8 +55,12 @@ class WordDetailViewModel @Inject constructor(
     private val _icStatusPlayer: MutableLiveData<Int> = MutableLiveData(R.drawable.ic_play)
     val icStatePlayer: LiveData<Int> = _icStatusPlayer
 
+    private val _player: MutableLiveData<Player> = MutableLiveData()
+    val player: LiveData<Player> = _player
+
     init {
-        player.prepare()
+        preparePlayerUseCase.run()
+        _player.value = getPlayerUseCase.run()
         _letter.value = WordDetailRoute.getStringFrom(savedStateHandle)
         _letter.value?.let { letter ->
             loadAllWordsData(letter)
@@ -57,7 +69,7 @@ class WordDetailViewModel @Inject constructor(
     }
 
     private fun exoPlayerListener() {
-        player.addListener(object : Player.Listener {
+        player.value?.addListener(object : Player.Listener {
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
                 if (isPlaying) {
@@ -73,10 +85,12 @@ class WordDetailViewModel @Inject constructor(
         getWordsByLetterUseCase(
             GetWordsByLetterUseCase.Params(letter),
             viewModelScope
-        ) { it.fold(::handleFailure, ::handleTopRatedMovieList) }
+        ) { it.fold(::handleFailure, ::handleWordsToSetOnVideoPlayer) }
 
-
-    private fun handleTopRatedMovieList(words: List<Word>) {
+    private fun setPlayer(player : Player) {
+        _player.value = player
+    }
+    private fun handleWordsToSetOnVideoPlayer(words: List<Word>) {
         _allWords.value = words
         setVideoOnPlayer()
     }
@@ -84,31 +98,12 @@ class WordDetailViewModel @Inject constructor(
     private fun setVideoOnPlayer() {
         _word.value = wordPosition.value?.let { allWords.value?.get(it) }
         allWords.value?.let {
-            addVideoUri(it[wordPosition.value ?: 0].video)
+            setVideoUseCase.run(SetVideoUseCase.Params(it[wordPosition.value ?: 0].video))
         }
     }
 
     private fun handleFailure(failure: Failure) {
         _failure.value = failure
-    }
-
-    private fun addVideoUri(uri: String) {
-        player.setMediaItem(
-            MediaItem.fromUri(uri)
-        )
-    }
-
-    private fun playVideo() {
-        with(player) {
-            if (this?.isPlaying == true) {
-                this?.pause()
-            } else if (this?.isPlaying == false && this?.getPlaybackState() == Player.STATE_ENDED) {
-                this?.seekTo(0)
-                this?.playWhenReady = true
-            } else {
-                this?.playWhenReady = true
-            }
-        }
     }
 
     override fun manageEvent(event: Any) {
@@ -128,7 +123,7 @@ class WordDetailViewModel @Inject constructor(
             }
 
             is WordDetailsEvent.PlayVideo -> {
-                playVideo()
+                playVideoUseCase.run()
             }
         }
     }

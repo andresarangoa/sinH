@@ -101,15 +101,6 @@ fun ContentPage(
                     is PlayerDetailViewModel.WordDetailsStatus.ShowWords -> {
                         empty(text = "holi")
 
-                        val selectVideoLauncher = rememberLauncherForActivityResult(
-                            contract = ActivityResultContracts.GetContent(),
-                            onResult = {
-                                it?.let {
-                                    playerDetailViewModel::addVideoUri
-                                }
-                            }
-                        )
-
                        DisposableEffect(
                            AndroidView(factory ={context ->
                                PlayerView(context).also {
@@ -135,9 +126,6 @@ fun ContentPage(
                        ){
                            onDispose { playerDetailViewModel.player.release() }
                        }
-                        playerDetailViewModel.addVideoUr(Uri.parse("https://drive.google.com/file/d/1MLPrAJiBi8yu1p30dUxmcQ2ntrr-wJOR/view?usp=drive_link"))
-                        playerDetailViewModel.playVid(Uri.parse("https://drive.google.com/file/d/1MLPrAJiBi8yu1p30dUxmcQ2ntrr-wJOR/view?usp=drive_link"))
-
                     }
                     else ->{}
                 }

@@ -14,6 +14,8 @@ import com.example.domain.databasemanager.repository.ApiConstants
 import com.example.domain.databasemanager.repository.MaterialRepository
 import com.example.logogenia.BuildConfig
 import com.example.logogenia.presentation.ui.knowingWords.KnowingWordsRoute
+import com.sinh.player.repository.IPlayer
+import com.sinh.player.repository.IPlayerImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -83,5 +85,9 @@ class AppModule {
     @Provides
     @Singleton
     fun provideMaterialRepository(dataSource: RepositoryImp): MaterialRepository = dataSource
+
+    @Provides
+    @Singleton
+    fun provideExoPlayerRepository(playerImplementation: IPlayerImp): IPlayer = playerImplementation
 
 }

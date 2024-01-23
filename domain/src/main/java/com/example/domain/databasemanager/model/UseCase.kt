@@ -31,3 +31,23 @@ abstract class UseCase<out Type, in Params> where Type : Any {
 
     class None
 }
+
+abstract class UseCaseWithoutParams<out Type> where Type : Any {
+
+    abstract suspend fun run(): Either<Failure, Type>
+
+    operator fun invoke(
+        scope: CoroutineScope = GlobalScope,
+        onResult: (Either<Failure, Type>) -> Unit = {}
+    ) {
+        scope.launch(Dispatchers.Main) {
+            val deferred = async(Dispatchers.IO) {
+                run()
+            }
+            onResult(deferred.await())
+        }
+    }
+
+    class None
+}
+
