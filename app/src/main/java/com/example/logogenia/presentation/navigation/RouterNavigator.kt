@@ -21,6 +21,7 @@ interface RouteNavigator {
     fun navigateUp()
     fun popToRoute(route: String)
     fun navigateToRoute(route: String)
+    fun clearBackStack(route: String)
 
     val navigationState: StateFlow<NavigationState>
     val bundleState: StateFlow<Bundle>
@@ -47,8 +48,8 @@ class LogogeniaRouteNavigator : RouteNavigator {
     override fun popToRoute(route: String) = navigate(NavigationState.PopToRoute(route))
 
     override fun navigateUp() = navigate(NavigationState.NavigateUp())
-
     override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
+    override fun clearBackStack(route: String) = navigate(NavigationState.ClearBackStack(route))
 
     @VisibleForTesting
     fun navigate(state: NavigationState) {
