@@ -1,4 +1,4 @@
-simport com.example.buildsrc.AppDependencies
+import com.example.buildsrc.AppDependencies
 import com.example.buildsrc.Hilt
 import com.example.buildsrc.Versions
 import com.example.buildsrc.androidTestImplementationOwn

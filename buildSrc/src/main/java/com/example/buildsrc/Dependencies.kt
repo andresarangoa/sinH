@@ -22,13 +22,6 @@ object Versions {
     const val androidxTest = "1.1.5"
     const val androidxTestEspresso = "3.5.1"
 
-    const val androidxTest = "1.1.3"
-    const val androidxTestEspresso = "3.4.0"
-    const val hiltVersion = "1.0.0"
-    const val navigationVersion = "2.4.2"
-    const val material3Version = "1.0.0-alpha13"
-    const val navigationAnimation = "0.26.5-rc"
-    const val exoPlayer = "1.0.0-rc01"
     const val exoCamera = "1.2.0-alpha03"
     const val tensorFlowLite = "0.3.0"
     const val tensorFlowLiteMetadata = "0.1.0"
