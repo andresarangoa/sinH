@@ -1,25 +1,26 @@
 package com.example.buildsrc
 
-
 object Versions {
-    const val compose_ui = "1.2.1"
-    const val coilCompose = "2.0.0-rc01"
-    const val activityCompose = "1.3.1"
-    const val runtimeKt ="2.3.1"
-    const val coreKtx = "1.7.0"
-    const val versionCompiler= "1.3.1"
+    const val compose_ui = "1.6.4"
+    const val coilCompose = "2.6.0"
+    const val activityCompose = "1.8.2"
+    const val runtimeKt = "2.7.0"
+    const val coreKtx = "1.12.0"
+    const val versionCompiler = "1.9.10"
 
     const val jUnit = "4.13.2"
-    const val mockk = "1.10.0"
-    const val robolectric = "4.4"
-    const val kluent = "1.68"
-    const val junitKtx = "1.1.3"
-    const val mockitoCore = "2.24.5"
-    const val mockitoKotlin = "4.0.0"
-    const val coroutinesTest = "1.7.3"
-    const val mockitoInline = "4.8.0"
-    const val archCoreTest = "2.1.0"
+    const val mockk = "1.13.10"
+    const val robolectric = "4.11.1"
+    const val kluent = "1.73"
+    const val junitKtx = "1.1.5"
+    const val mockitoCore = "5.10.0"
+    const val mockitoKotlin = "5.2.1"
+    const val coroutinesTest = "1.8.1"
+    const val mockitoInline = "5.2.0"
+    const val archCoreTest = "2.2.0"
 
+    const val androidxTest = "1.1.5"
+    const val androidxTestEspresso = "3.5.1"
 
     const val androidxTest = "1.1.3"
     const val androidxTestEspresso = "3.4.0"
@@ -33,18 +34,24 @@ object Versions {
     const val tensorFlowLiteMetadata = "0.1.0"
     const val accompanistPersmission = "0.24.3-alpha"
     const val javapoet = "1.13.0"
+    const val hiltVersion = "1.2.0"
+    const val navigationVersion = "2.7.7"
+    const val material3Version = "1.2.1"
+    const val navigationAnimation = "0.32.0"
+    const val exoPlayer = "1.2.1"
 }
 
-object DebugDependencies{
-    private const val kanaryVersion = "2.9.1"
-    const val leakKanary="com.squareup.leakcanary:leakcanary-android:$kanaryVersion"
+object DebugDependencies {
+    private const val kanaryVersion = "2.13"
+    const val leakKanary = "com.squareup.leakcanary:leakcanary-android:$kanaryVersion"
 }
 
 object Kotlin {
+    const val version = "2.1.2"
 
     object Coroutines {
-        private const val version = "1.8.21"
-        private const val coreVersion = "1.6.4"
+        private const val version = "1.8.1"
+        private const val coreVersion = "1.8.1"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coreVersion"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coreVersion"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coreVersion"
@@ -52,9 +59,9 @@ object Kotlin {
     }
 }
 
-object Retrofit{
-    private const val retrofitVersion = "2.9.0"
-    private const val okHttpLoggingInterceptorVersion = "4.9.0"
+object Retrofit {
+    private const val retrofitVersion = "2.10.0"
+    private const val okHttpLoggingInterceptorVersion = "4.12.0"
 
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -62,21 +69,21 @@ object Retrofit{
 }
 
 object Firebase {
-    const val firebaseAuthVersion = "20.0.0"
-    const val firebaseCommonVersion = "20.1.1"
-    const val firebaseBoomVersion = "30.3.1"
-    const val serviceAuthVersion = "18.1.0"
+    const val firebaseAuthVersion = "22.3.1"
+    const val firebaseCommonVersion = "20.4.2"
+    const val firebaseBoomVersion = "32.7.4"
+    const val serviceAuthVersion = "21.0.0"
 
-    const val firebaseAuth  = "com.google.firebase:firebase-auth-ktx"
-    const val firebaseCommon  = "com.google.firebase:firebase-common-ktx:$firebaseCommonVersion"
-    const val serviceAuth  = "com.google.android.gms:play-services-auth:$serviceAuthVersion"
+    const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
+    const val firebaseCommon = "com.google.firebase:firebase-common-ktx:$firebaseCommonVersion"
+    const val serviceAuth = "com.google.android.gms:play-services-auth:$serviceAuthVersion"
     const val firestore = "com.google.firebase:firebase-firestore-ktx"
     const val firebaseBoom = "com.google.firebase:firebase-bom:$firebaseBoomVersion"
-    const val firebaseAuthUI = "com.firebaseui:firebase-ui-auth:7.2.0"
+    const val firebaseAuthUI = "com.firebaseui:firebase-ui-auth:9.0.0"
 }
 
 object Hilt {
-    private const val version = "2.46.1"
+    private const val version = "2.51"
 
     const val android = "com.google.dagger:hilt-android:$version"
     const val compiler = "com.google.dagger:hilt-compiler:$version"
@@ -84,7 +91,7 @@ object Hilt {
 }
 
 object Room {
-    private const val roomVersion = "2.4.0-alpha03"
+    private const val roomVersion = "2.6.1"
 
     const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
     const val roomLib = "androidx.room:room-runtime:$roomVersion"
@@ -92,10 +99,7 @@ object Room {
 }
 
 
-
 object AppDependencies {
-
-
     //android ui
     private const val androidXCore = "androidx.core:core-ktx:${Versions.coreKtx}"
     private const val androidxLifeCycle =
